@@ -2,6 +2,7 @@
   <v-card>
     <v-text-field label="title" v-model="board.title"></v-text-field>
     <v-textarea label="content" v-model="board.contents.content"></v-textarea>
+    <slot name="imageInput"></slot>
     <v-checkbox v-model="board.isPublic">isPublic</v-checkbox> <v-btn @click="submit">submit</v-btn>
   </v-card>
 </template>
