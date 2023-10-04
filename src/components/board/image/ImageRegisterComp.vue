@@ -1,17 +1,20 @@
+<!--v-model imageKey s3, event -->
 <template>
   <div>
-    <v-file-input v-model="file" accept="image/png, image/jpg, image/jpeg" @update:modelValue="changeFile"/>
+    <div>
+      <v-file-input v-model="file" accept="image/png, image/jpg, image/jpeg" @update:modelValue="changeFile"/>
+    </div>
   </div>
 </template>
 
 <script setup>
-import {computed, defineEmits, defineProps, inject, reactive} from "vue";
+import {computed, defineEmits, defineProps, inject, reactive, ref} from "vue";
 import AWS from 'aws-sdk'
 import {uuidv4} from "@/util/uuid";
 
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
-
+const previewImage = ref()
 const imageKey = computed({
 
   get() {
@@ -48,7 +51,7 @@ const s3FileUpload = () => {
 
   if (file) {
     const fileContent = file[0];
-
+    console.log(fileContent)
     s3.upload({
       Key: imageKey.value,
       Body: fileContent,
@@ -63,12 +66,13 @@ const s3FileUpload = () => {
   }
 };
 const emitter = inject("emitter")
-emitter.on("submitBoard", () => {
+emitter.on("upload", () => {
   s3FileUpload()
 })
 
 const changeFile = () => {
-  imageKey.value = uuidv4() + "-" + file[0].name
+  imageKey.value = uuidv4()
+  previewImage.value = URL.createObjectURL(file[0])
 }
 </script>
 

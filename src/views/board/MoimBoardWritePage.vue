@@ -1,5 +1,5 @@
 <template>
-<BoardWriteComp @submit="submit"></BoardWriteComp>
+<BoardWriteComp @post="post"></BoardWriteComp>
 </template>
 
 <script setup>
@@ -11,11 +11,11 @@ const props= defineProps({
   moimId: Number
 })
 const category = 'moim'
-const submit= (payload)=> {
+const post= (payload)=> {
   payload.category = category
   axiosInstance.springAxiosInst.post(`/board/moim/${props.moimId}`, payload)
     .then((res)=> {
-      router.push(`/board/${res.data.id}`)
+      router.push(`/board/${res.data.boardId}`)
     })
 }
 </script>

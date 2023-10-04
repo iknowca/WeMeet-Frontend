@@ -1,8 +1,10 @@
 <template>
 <div>
-  <v-card>
+  <v-card class="grid pa-4 grid-cols-1">
     <v-text-field v-model="contents"></v-text-field>
+    <div class="justify-center">
     <v-btn @click="submit">댓글 달기</v-btn>
+    </div>
   </v-card>
 </div>
 </template>

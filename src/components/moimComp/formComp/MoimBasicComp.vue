@@ -1,10 +1,8 @@
 <template>
-<div>
-  <v-card>
+<div class="">
     <v-card-title>기본 정보</v-card-title>
-    <v-text-field v-model="basicInfo.title"> 제목 </v-text-field>
-    <v-text-field v-model="basicInfo.content"> 내용 </v-text-field>
-  </v-card>
+    <v-text-field v-model="basicInfo.title" label="모임 이름" placeholder="모임 이름을 입력해 주세요" variant="outlined"> </v-text-field>
+    <v-textarea v-model="basicInfo.content" label="본문" placeholder="원하는 모임의 성격을 적어주세요." variant="outlined"> 내용 </v-textarea>
 </div>
 </template>
 

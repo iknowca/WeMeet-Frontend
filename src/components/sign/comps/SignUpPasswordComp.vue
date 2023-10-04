@@ -29,8 +29,6 @@ const passwordCheck = ref("")
 const rules = {
   nullCheck: password => !!password || "비밀번호를 입력하세요.",
   samePassword: passwordCheck=> {
-    console.log(password.value)
-    console.log(passwordCheck)
     return passwordCheck===password.value||"동일한 비밀번호를 입력하세요.";
   },
   valid: (password) => {

@@ -1,5 +1,6 @@
 export default {
-    users:[],
     user:{},
     accessToken: "",
+    blockUserList: [],
+    followUserList: [],
 }

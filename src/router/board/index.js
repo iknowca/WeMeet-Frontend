@@ -19,7 +19,7 @@ const boardRouter = [
   },
   {
     path: `/board/:category/list`,
-    name: 'QnaBoardListPage',
+    name:  'QnaBoardListPage',
     component: QnaBoardListPage,
   },
   {

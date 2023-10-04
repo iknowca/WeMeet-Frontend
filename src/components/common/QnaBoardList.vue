@@ -1,7 +1,10 @@
 <template>
-  <BoardListComp :board-list="boardList"></BoardListComp>
-  {{category}}
-  <v-btn @click="()=> router.push(`/board/${category}/write`)" v-if="checkAdmin">글 쓰기</v-btn>
+  <div class="grid grid-cols-1 gap-4">
+    <div>
+      <v-btn @click="()=> router.push(`/board/${category}/write`)">글 쓰기</v-btn>
+    </div>
+    <BoardListComp :board-list="boardList" class="w-full"></BoardListComp>
+  </div>
 </template>
 
 <script setup>
@@ -21,7 +24,7 @@ const getBoardList = ()=> {
   axiosInstance.springAxiosInst.get(`/board/list/${category.value}`, {params: {page: 0, size: 20}})
     .then((res)=> {
       boardList.length=0
-      boardList.push(...res.data)
+      boardList.push(...res.data.content)
     })
 }
 onMounted(() => {

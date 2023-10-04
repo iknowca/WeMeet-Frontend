@@ -1,17 +1,18 @@
 <template>
-<v-card>
+<div class="grid grid-cols-1 gap-4">
   <v-card-title>
     여행지 정보
   </v-card-title>
+  <div></div>
   <v-select :items="countries" v-model="destinationInfo.country"
-            @update:modelValue="getCities(destinationInfo.country)">여행 국가
+            @update:modelValue="getCities(destinationInfo.country)" label="여행 국가" placeholder="여행을 갈 국가를 선택해 주세요" variant="outlined">여행 국가
   </v-select>
   <v-select :items="cities" v-model="destinationInfo.city"
-            @update:modelValue="getAirportList(destinationInfo.country, destinationInfo.city)">여행 도시
+            @update:modelValue="getAirportList(destinationInfo.country, destinationInfo.city)" label="도시" variant="outlined">여행 도시
   </v-select>
   <v-select :items="airportList" v-model="destinationInfo.departureAirport"
-            @update:modelValue="getOption(destinationInfo.country, destinationInfo.city, destinationInfo.departureAirport)"></v-select>
-</v-card>
+            @update:modelValue="getOption(destinationInfo.country, destinationInfo.city, destinationInfo.departureAirport)" label="출발 공항" variant="outlined"></v-select>
+</div>
 </template>
 
 <script setup>
@@ -24,6 +25,7 @@ const destinationInfo = computed({
   country: "",
   city: "",
   departureAirport: "",
+  imageKey: "",
   get() {
     return props.modelValue
   },
@@ -52,7 +54,12 @@ const getCities = (country) => {
 }
 const airportList = reactive([])
 const getOption = async (country, city, airport) => {
-
+  axiosInstance.springAxiosInst.get("/travel/image", {
+    params: {
+      country, city, airport
+    }
+  })
+    .then(res=>destinationInfo.value.imageKey=res.data)
   return await axiosInstance.springAxiosInst.get("/travel/option/list", {
     params: {
       country: country,

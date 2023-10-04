@@ -1,54 +1,30 @@
 <template>
-  <div>
-    <v-col>
-      <v-row>
-        <v-spacer/>
-        <v-col cols="10">
-          <MoimBasicComp v-model="basicInfo"></MoimBasicComp>
-        </v-col>
-        <v-spacer/>
-      </v-row>
-      <v-row>
-        <v-spacer/>
-        <v-col cols="10">
-          <ParticipantsComp v-model="participantsInfo"></ParticipantsComp>
-        </v-col>
-        <v-spacer/>
-      </v-row>
-      <v-row>
-        <v-spacer/>
-        <v-col cols="10">
-          <DestinationComp v-model="destinationInfo"></DestinationComp>
-        </v-col>
-        <v-spacer/>
-      </v-row>
-      <v-row>
-        <v-spacer/>
-        <v-col cols="10">
-          <StateComp v-model="stateInfo"></StateComp>
-        </v-col>
-        <v-spacer/>
-      </v-row>
-      <v-row>
-        <v-spacer/>
-        <v-col cols="10">
-          <OptionComp v-model="optionsInfo"></OptionComp>
-        </v-col>
-        <v-spacer/>
-      </v-row>
+  <v-card class="pa-4 pl-10 pr-10 " style="min-width: 601px">
+    <div style="max-width: 800px" class="m-auto">
+      <MoimBasicComp v-model="basicInfo"></MoimBasicComp>
+      <v-divider class="border-opacity-50 border-black my-4"></v-divider>
 
-      <v-row>
-        <v-spacer>
-          <v-col cols="10">
-            {{ paymentInfo.totalPrice }}
-          </v-col>
-        </v-spacer>
-      </v-row>
-      <v-row>
-        <v-btn @click="submit">submit</v-btn>
-      </v-row>
-    </v-col>
-  </div>
+      <ParticipantsComp v-model="participantsInfo"></ParticipantsComp>
+      <v-divider class="border-opacity-50 border-black my-4"></v-divider>
+
+      <DestinationComp v-model="destinationInfo"></DestinationComp>
+      <v-divider class="border-opacity-50 border-black my-4"></v-divider>
+
+      <StateComp v-model="stateInfo"></StateComp>
+      <v-divider class="border-opacity-50 border-black my-4"></v-divider>
+
+      <OptionComp v-model="destinationInfo.optionsInfo"></OptionComp>
+      <v-divider class="border-opacity-50 border-black my-4"></v-divider>
+      <div>
+        <strong>가격 합계: </strong>
+        {{ paymentInfo.totalPrice }}원 ->{{ Math.floor(paymentInfo.totalPrice / stateInfo.runwayPeriod) }} 원 / 월
+      </div>
+
+      <v-divider class="border-opacity-50 border-black my-4"></v-divider>
+
+      <v-btn @click="submit">submit</v-btn>
+    </div>
+  </v-card>
 </template>
 
 <script setup>
@@ -73,9 +49,11 @@ const participantsInfo = reactive({
 const destinationInfo = reactive({
   country: "",
   city: "",
-  departureAirport: ""
+  departureAirport: "",
+  imageKey:"",
+  optionsInfo: reactive([])
 })
-let optionsInfo = reactive([])
+
 const stateInfo = reactive({
   startDate: new Date(),
   taxxingPeriod: 7,
@@ -88,18 +66,18 @@ const stateInfo = reactive({
 })
 
 const paymentInfo = reactive({
-  totalPrice: 0
+  totalPrice: 0,
 })
-watch(optionsInfo, ()=> {
-  paymentInfo.totalPrice = optionsInfo.reduce((acc, option)=>{return acc += option.optionPrice}, 0)
+watch(destinationInfo.optionsInfo, ()=> {
+  paymentInfo.totalPrice = destinationInfo.optionsInfo.reduce((acc, option)=>{return acc += option.price}, 0)
 })
 
 const submit = () => {
-  const payload = {basicInfo, participantsInfo, destinationInfo, optionsInfo, stateInfo, paymentInfo}
+  const payload = {basicInfo, participantsInfo, destinationInfo, stateInfo, paymentInfo}
   console.log(payload)
   axiosInstance.springAxiosInst.post("/moim", payload)
     .then((res) => {
-      router.push(`/moim/${res.data.id}/join/payment`)
+      router.push(`/moim/${res.data.moimId}/join/payment`)
     })
 }
 </script>

@@ -1,23 +1,17 @@
 <template>
-  <v-col>
-    <v-row>
+  <div class="grid grid-cols-3 gap-6">
       <v-range-slider v-model="filter.rangeTotalPrice"
-                      label="totalPrice" :min="rangeTotalPrice[0]" :max="rangeTotalPrice[1]" thumb-label="always"
+                      label="총 금액" :min="rangeTotalPrice[0]" :max="rangeTotalPrice[1]" thumb-label="always"
                       step="1" @update:focused="()=>emitter.emit('requestSearch')"></v-range-slider>
-    </v-row>
-    <v-row>
-      <v-range-slider v-model="filter.rangeNumOfInstallment" label="NumOfInstallment" :min="rangeNumOfInstallment[0]"
+      <v-range-slider v-model="filter.rangeNumOfInstallment" label="납입 개월" :min="rangeNumOfInstallment[0]"
                       :max="rangeNumOfInstallment[1]"
                       thumb-label="always" step="1"
                       @update:focused="()=>emitter.emit('requestSearch')"></v-range-slider>
-    </v-row>
-    <v-row>
-      <v-range-slider v-model="filter.rangeInstallment" label="installment" :min="rangeInstallment[0]"
+      <v-range-slider v-model="filter.rangeInstallment" label="월 납입금" :min="rangeInstallment[0]"
                       :max="rangeInstallment[1]" thumb-label="always"
                       @update:focused="()=>emitter.emit('requestSearch')"
                       step="1"></v-range-slider>
-    </v-row>
-  </v-col>
+  </div>
 </template>
 
 <script setup>

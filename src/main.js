@@ -7,6 +7,7 @@ import { loadFonts } from './plugins/webfontloader'
 import 'aos/dist/aos.css'
 import 'vue3-carousel/dist/carousel.css'
 import mitt from "mitt";
+import "./index.css";
 
 loadFonts()
 let app = createApp(App)

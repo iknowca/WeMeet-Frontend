@@ -4,7 +4,6 @@
 // } from './mutation-types'
 
 import axiosInst from '@/utility/axiosInstance'
-import { SET_USER } from "@/store/user/mutation-types";
 import router from "@/router";
 
 export default {
@@ -76,8 +75,9 @@ export default {
     async requestJwtOauthGoogleToSpring(context, code) {
         return axiosInst.springAxiosInst.get("/oauth/google-login", { params: { code: code }, withCredentials: true })
             .then(async (res) => {
-                axiosInst.springAxiosInst.defaults.headers.common.Authorization = `Bearer ${res.data}`
-                return await context.dispatch("requestUserInfoToSpring")
+              context.commit("SET_SIGNIN", res.data)
+              axiosInst.springAxiosInst.defaults.headers.common.Authorization = `Bearer ${res.data}`
+              return await context.dispatch("requestUserInfoToSpring")
             })
     },
     async requestKakaoOauthRedirectUrlToSpring() {
@@ -89,25 +89,33 @@ export default {
     async requestJwtOauthKakaoToSpring(context, code) {
         return axiosInst.springAxiosInst.get("/oauth/kakao-login", { params: { code: code }, withCredentials: true })
             .then(async (res) => {
-                console.log(res.data)
-                axiosInst.springAxiosInst.defaults.headers.common.Authorization = `Bearer ${res.data}`
-                return await context.dispatch("requestUserInfoToSpring")
+              context.commit("SET_SIGNIN", res.data)
+              axiosInst.springAxiosInst.defaults.headers.common.Authorization = `Bearer ${res.data}`
+              return await context.dispatch("requestUserInfoToSpring")
             })
     },
     async requestUserInfoToSpring(context) {
         return axiosInst.springAxiosInst.get("/user")
             .then((res) => {
-                context.commit(SET_USER, res.data)
+              context.commit("SET_USER", res.data)
                 return res
             })
     },
     async requestSignOut(context) {
         return axiosInst.springAxiosInst.delete("/user/sign-out", { withCredentials: true })
             .then(() => {
-                context.commit("SET_USER", {})
-                context.commit("SET_SIGNIN", false)
-                delete axiosInst.springAxiosInst.defaults.headers.common.Authorization
-                router.push('/')
+              router.push('/')
+              context.commit("SET_USER", {})
+              context.commit("SET_SIGNIN", false)
+              delete axiosInst.springAxiosInst.defaults.headers.common.Authorization
             })
-    }
+    },
+  requestFollowList(context) {
+      return axiosInst.springAxiosInst.get("/user/follow/list")
+        .then((res)=>context.commit("SET_FOLLOW_USERS", res.data))
+  },
+  requestBlockList(context) {
+    return axiosInst.springAxiosInst.get("/user/block/list")
+      .then(res=>context.commit("SET_BLOCK_USERS", res.data))
+  }
 }

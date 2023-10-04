@@ -28,7 +28,6 @@ import SignUpNameComp from "@/components/sign/comps/SignUpNameComp.vue"
 import SignUpEmailComp from "@/components/sign/comps/SignUpEmailComp.vue";
 import SignUpPasswordComp from "@/components/sign/comps/SignUpPasswordComp.vue";
 import {ref} from "vue";
-import "@/assets/css/Sign.css"
 
 const userModule = 'userModule'
 

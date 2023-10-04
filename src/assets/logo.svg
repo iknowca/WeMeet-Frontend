@@ -1,6 +1,40 @@
-<svg width="488" height="424" viewBox="0 0 488 424" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M249.126 95.017L151.843 263.694L243.959 423.473L365.966 211.973L487.918 0.473206H303.629L249.126 95.017Z" fill="#1697F6"/>
-<path d="M122.007 211.973L128.396 223.096L219.402 65.2635L256.793 0.473206H243.959H0L122.007 211.973Z" fill="#AEDDFF"/>
-<path d="M303.629 0.473206C349.743 152.355 243.959 423.473 243.959 423.473L151.843 263.694L303.629 0.473206Z" fill="#1867C0"/>
-<path d="M256.793 0.473206C62.5042 0.473206 128.397 223.096 128.397 223.096L256.793 0.473206Z" fill="#7BC6FF"/>
+<svg width="920" height="620" viewBox="-10 -10 910 610" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polyline
+            points="0,100 100,200 300,100 200,0 0,100"
+            fill="none" stroke="#3f69fb" stroke-width="5" />
+    <polyline
+            points="300,100 400,200 600,100 500,0 300,100"
+            fill="none" stroke="#3f69fb" stroke-width="5" />
+    <polyline
+            points="600,100 700,200 900,100 800,0 600,100"
+            fill="none" stroke="#3f69fb" stroke-width="5" />
+    <polyline
+            points="0,100 0,300 100,400 100,200 0,100"
+            fill="none" stroke="#3f69fb" stroke-width="5"/>
+    <polyline
+            points="0,300 0,500 100,600 100,400 0,300"
+            fill="none" stroke="#3f69fb" stroke-width="5"/>
+    <polyline
+            points="300,100 300,300 400,400 400,200 300,100"
+            fill="none" stroke="#3f69fb" stroke-width="5"/>
+<!--    <polyline-->
+<!--            points="300,300 300,500 400,600 400,400 300,300"-->
+<!--            fill="none" stroke="#000000" stroke-width="5"/>-->
+    <polyline
+            points="600,300 600,500 700,600 700,400 600,300"
+            fill="none" stroke="#3f69fb" stroke-width="5"/>
+    <polyline
+            points="600,100 600,300 700,400 700,200 600,100"
+            fill="none" stroke="#3f69fb" stroke-width="5"/>
+    <polygon points="100,200 100,400 300,300 300,100" fill="#3f69fb"></polygon>
+    <polygon points="100,400 100,600 300,500 300,300" fill="#3f69fb"></polygon>
+<!--    <polygon points="400,400 400,600 600,500 600,300" fill="#000000"></polygon>-->
+    <polygon points="400,200 400,400 600,300 600,100" fill="#3f69fb"></polygon>
+    <polygon points="700,200 700,400 900,300 900,100" fill="#3f69fb"></polygon>
+    <polygon points="700,400 700,600 900,500 900,300" fill="#3f69fb"></polygon>
+
+    <!--<path d="M249.126 95.017L151.843 263.694L243.959 423.473L365.966 211.973L487.918 0.473206H303.629L249.126 95.017Z" fill="#1697F6"/>-->
+<!--<path d="M122.007 211.973L128.396 223.096L219.402 65.2635L256.793 0.473206H243.959H0L122.007 211.973Z" fill="#AEDDFF"/>-->
+<!--<path d="M303.629 0.473206C349.743 152.355 243.959 423.473 243.959 423.473L151.843 263.694L303.629 0.473206Z" fill="#1867C0"/>-->
+<!--<path d="M256.793 0.473206C62.5042 0.473206 128.397 223.096 128.397 223.096L256.793 0.473206Z" fill="#7BC6FF"/>-->
 </svg>

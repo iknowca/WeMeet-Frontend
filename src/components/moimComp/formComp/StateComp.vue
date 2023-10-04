@@ -1,14 +1,18 @@
 <template>
-  <div>
-    <v-card>
+  <div class="grid gap-4">
       <v-card-title>계획 설정</v-card-title>
+    <div class="grid-cols-2 grid gap-4">
       <v-text-field type="number" label="taxxing 기간(일)" v-model="stateInfo.taxxingPeriod"
-                    :rules="[rules.taxxingRules.minRule, rules.taxxingRules.maxRule]"></v-text-field>
+                    :rules="[rules.taxxingRules.minRule, rules.taxxingRules.maxRule]" variant="outlined"></v-text-field>
       <v-text-field type="number" label="runway 기간(월)" v-model="stateInfo.runwayPeriod"
-                    :rules="[rules.runwayRules.minRule, rules.runwayRules.maxRule]"></v-text-field>
+                    :rules="[rules.runwayRules.minRule, rules.runwayRules.maxRule]" variant="outlined"></v-text-field>
+    </div>
+    <div class="grid justify-center">
+    <v-card-subtitle>여행 일자 선택(여행 출발일자/여행 복귀일자)</v-card-subtitle>
+    </div>
+    <div class="m-auto w-fit">
       <VDatePicker v-model="travelDate" range multi-calendars inline auto-apply></VDatePicker>
-    </v-card>
-  </div>
+  </div></div>
 </template>
 
 <script setup>

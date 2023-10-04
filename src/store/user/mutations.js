@@ -1,7 +1,7 @@
 import {
   REQUEST_USER_LIST_TO_SPRING,
   REQUEST_USER_TO_SPRING,
-  SET_ACCESS_TOKEN,
+  SET_ACCESS_TOKEN, SET_BLOCK_USERS, SET_FOLLOW_USERS,
   SET_SIGNIN,
   SET_USER
 } from './mutation-types'
@@ -28,5 +28,11 @@ export default {
       delete axiosInst.springAxiosInst.defaults.headers.common.Authorization
       localStorage.clear()
     }
+  },
+  [SET_BLOCK_USERS](state, receivedData) {
+    state.blockUserList = receivedData
+  },
+  [SET_FOLLOW_USERS](state, receivedData) {
+    state.followUserList = receivedData
   }
 }

@@ -1,7 +1,15 @@
 <template>
-  <v-btn @click="requestPay('danal_tpay')"> 카드 결제하기</v-btn>
-  <v-btn @click="requestPay('tosspay')"> 토스페이로 결제하기</v-btn>
-  <v-btn @click="requestPay('kakaopay')">카카오페이로 결제하기</v-btn>
+  <div class="border-4 rounded-xl pa-4 grid gap-4">
+    <div><strong>04. 결제 정보</strong></div>
+    <div class="text-center">
+      <span class="text-gray-500">총 결제 금액:</span>{{paymentInfo.totalPrice}}원 -> <span class="text-h3 font-weight-bold">{{paymentInfo.amountInstallment}}원/월</span> <span class="text-gray-700">({{paymentInfo.numInstallments}} 개월)</span>
+    </div>
+      <div class="justify-center grid grid-cols-3">
+        <v-btn @click="requestPay('danal_tpay')" variant="plain" > <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="require('@/assets/comp/pay/danal_tpay.png')" alt="">카드 결제하기</v-btn>
+        <v-btn @click="requestPay('tosspay')" variant="plain"><img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="require('@/assets/comp/pay/tosspay.png')" alt=""> 토스페이로 결제하기</v-btn>
+        <v-btn @click="requestPay('kakaopay')" variant="plain"><img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="require('@/assets/comp/pay/kakaopay.png')" alt="">카카오페이로 결제하기</v-btn>
+      </div>
+  </div>
 
 </template>
 
@@ -9,7 +17,7 @@
 /* global IMP */
 import axiosInstance from "@/utility/axiosInstance";
 import {useRoute} from "vue-router";
-import {computed, defineEmits, defineProps} from "vue";
+import {computed, defineEmits, defineProps, reactive} from "vue";
 import router from "@/router";
 
 const route = useRoute()
@@ -29,6 +37,15 @@ const paymentInfo = computed({
     emit('update:modelValue', paymentInfo)
   },
 })
+
+const optionList = reactive([])
+const getOptionList = () => {
+  axiosInstance.springAxiosInst.get(`/moim/${moimId}/destination/option/list`)
+    .then(res => {
+      optionList.length = 0
+      optionList.push(...res.data)
+    })
+}
 const requestPay = (pg) => {
   const customer_uid = self.crypto.randomUUID()
   const merchant_uid = self.crypto.randomUUID()
@@ -42,8 +59,7 @@ const requestPay = (pg) => {
     payMethod,
     merchant_uid
   }
-  axiosInstance.springAxiosInst.post(`/payment/moim/${moimId}`, springPayload)
-    .then(()=>{
+
       IMP.request_pay({
         customer_uid: customer_uid,
         pg: pgProvider,
@@ -53,15 +69,15 @@ const requestPay = (pg) => {
         // amount: paymentInfo.value.totalPrice,
         amount: paymentInfo.value.amountInstallment
       }, (rsp) => {
-        console.log(rsp.success)
         if (rsp.success) {
+          axiosInstance.springAxiosInst.post(`/payment/moim/${moimId}`, springPayload)
+            .then(() => router.push(`/moim/${moimId}`))
           alert("결제가 정상적으로 요청 되었습니다.")
-          router.push(`/moim/${moimId}`)
         } else {
           alert(rsp.error_msg)
         }
       })
-    })
+
 
 }
 </script>

@@ -1,11 +1,12 @@
 <template>
-<div>
-  <v-row>
-    <v-select label="country" v-model=destination.country :items="countryList" @update:modelValue="getCityList"></v-select>
-    <v-select label="city" v-model="destination.city" :items="cityList" @update:modelValue="getDepartureAirportList"></v-select>
-    <v-select label="departureAirport" v-model="destination.departureAirport" :items="departureAirportList" @update:modelValue="()=>emitter.emit('requestSearch')"></v-select>
-  </v-row>
-  </div>
+<div class="grid grid-cols-3 gap-4">
+    <v-select label="country" v-model=destination.country :items="countryList" @update:modelValue="getCityList"
+              variant="outlined"></v-select>
+    <v-select label="city" v-model="destination.city" :items="cityList" @update:modelValue="getDepartureAirportList"
+              variant="outlined"></v-select>
+    <v-select label="departureAirport" v-model="destination.departureAirport" :items="departureAirportList"
+              @update:modelValue="()=>emitter.emit('requestSearch')" variant="outlined"></v-select>
+</div>
 </template>
 
 <script setup>
